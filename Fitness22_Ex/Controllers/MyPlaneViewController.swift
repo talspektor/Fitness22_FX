@@ -16,55 +16,34 @@ class MyPlaneViewController: UIViewController {
     @IBOutlet weak var sessionCollectionView: UICollectionView!
     @IBOutlet weak var checkCollectionView: UICollectionView!
     
-    var model: SessionsListModel? = nil
+    private var layout: UICollectionViewFlowLayout!
+    private var model: SessionsListModel? = nil
+    private lazy var states: [SessionCellState] = {
+        var states = [SessionCellState]()
+        guard let array = model?.array else { return states }
+        for state in array {
+            states.append(.notCompleted)
+        }
+        return states
+    }()
+    private let cellScale: CGFloat = 0.8
+    private let dataManager = DataManager.shared
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         setCollectionViewLayout()
         
-        setModel()
+        model = dataManager.getModel(resource: Files.sessions.rawValue, type: SessionsListModel.self)
     }
     
     private func setCollectionViewLayout() {
-        let layout = UICollectionViewFlowLayout()
+        layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 300.0, height: 275.0)
         layout.minimumLineSpacing = 20
         sessionCollectionView.collectionViewLayout = layout
-        
-//        let checkLayout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        checkLayout.itemSize = CGSize(width: 50.0, height: 50.0)
-//        checkLayout.minimumLineSpacing = 4
-//        checkCollectionView.collectionViewLayout = checkLayout
-    }
-    
-    //TODO: move it
-    private func fetchData() -> Data? {
-        do {
-            if let bundlePath = Bundle.main.path(forResource: "sessions",
-                                                 ofType: "json"),
-               let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-               return jsonData
-            }
-        } catch {
-            print(error)
-        }
-        return nil
-    }
-    //TODO: move it
-    private func setModel() {
-        if let data = fetchData() {
-            do {
-                print("\(data)")
-                let jsonData = try JSONDecoder().decode(SessionsListModel.self, from: data)
-                model = jsonData
-                print("decode success")
-            } catch {
-                print("decode error")
-            }
-        }
     }
     
     private func registerCells() {
@@ -84,6 +63,20 @@ extension MyPlaneViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("tap on cell: \(indexPath)")
     }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let layout = self.sessionCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        let roundedIndex = round(index)
+        
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left - (layout.minimumLineSpacing * 2), y: scrollView.contentInset.top)
+        
+        targetContentOffset.pointee = offset
+    }
 }
 
 extension MyPlaneViewController: UICollectionViewDataSource {
@@ -96,12 +89,14 @@ extension MyPlaneViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckCollectionViewCell.identifier, for: indexPath) as! CheckCollectionViewCell
             let chapter = "\(String(indexPath.item + 1))"
             cell.configure(with: chapter)
+            cell.setState(states[indexPath.item])
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SessionCell.identifier, for: indexPath) as! SessionCell
         cell.delegate = self
         if let cellModel = model?.array[indexPath.item] {
             cell.configure(with: cellModel, index: indexPath.item + 1)
+            cell.setState(states[indexPath.item])
         }
         return cell
     }
@@ -113,8 +108,9 @@ extension MyPlaneViewController: SessionCellDelegate {
         let action = UIAlertAction(title: "Close", style: .default) { (action) in
             cell.setState(.completed)
             if let indexPath = self.sessionCollectionView.indexPath(for: cell),
-               let checkCell = self.checkCollectionView.cellForItem(at: indexPath) as? CheckCollectionViewCell {
+                let checkCell = self.checkCollectionView.cellForItem(at: indexPath) as? CheckCollectionViewCell {
                 checkCell.setState(.completed)
+                self.states[indexPath.item] = .completed
             }
         }
         alert.addAction(action)

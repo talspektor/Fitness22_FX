@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43541AB125A795DE00D4B454 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43541AB025A795DE00D4B454 /* DataManager.swift */; };
+		43541AE025A8835000D4B454 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43541ADF25A8835000D4B454 /* Files.swift */; };
 		439AE67D25A6DEA40014D239 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439AE67C25A6DEA40014D239 /* AppDelegate.swift */; };
 		439AE67F25A6DEA40014D239 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439AE67E25A6DEA40014D239 /* SceneDelegate.swift */; };
 		439AE68425A6DEA40014D239 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439AE68225A6DEA40014D239 /* Main.storyboard */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43541AB025A795DE00D4B454 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		43541ADF25A8835000D4B454 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		439AE67925A6DEA40014D239 /* Fitness22_Ex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitness22_Ex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439AE67C25A6DEA40014D239 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439AE67E25A6DEA40014D239 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +59,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43541AAF25A795CB00D4B454 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				43541AB025A795DE00D4B454 /* DataManager.swift */,
+				43541ADF25A8835000D4B454 /* Files.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		439AE67025A6DEA40014D239 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +87,7 @@
 		439AE67B25A6DEA40014D239 /* Fitness22_Ex */ = {
 			isa = PBXGroup;
 			children = (
+				43541AAF25A795CB00D4B454 /* Data */,
 				439AE6BA25A709240014D239 /* Model */,
 				439AE69925A6E2B80014D239 /* MockData */,
 				439AE69425A6E1EB0014D239 /* Controllers */,
@@ -224,6 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				439AE6B625A6FF140014D239 /* SessionCell.swift in Sources */,
+				43541AE025A8835000D4B454 /* Files.swift in Sources */,
+				43541AB125A795DE00D4B454 /* DataManager.swift in Sources */,
 				439AE67D25A6DEA40014D239 /* AppDelegate.swift in Sources */,
 				439AE6BC25A709470014D239 /* SeccionModel.swift in Sources */,
 				439AE67F25A6DEA40014D239 /* SceneDelegate.swift in Sources */,

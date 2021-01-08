@@ -42,6 +42,11 @@ class SessionCell: UICollectionViewCell {
         setupIU()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        startButton.setTitle(state.rawValue, for: .normal)
+    }
+    
     private func setupIU() {
         startButton.layer.cornerRadius = startButton.frame.height / 2
         mainView.layer.cornerRadius = 8
@@ -58,6 +63,20 @@ class SessionCell: UICollectionViewCell {
         intensityLabel.text = model.difficulty
         quoteLabel.text = model.quote
         quoteAuthorLabel.text = model.quoteAuthor
+        setImage()
+    }
+    
+    private func setImage() {
+        switch intensityLabel.text {
+        case "Easy":
+            intensityImageView.image = UIImage(named: "intensity_1_dark")
+        case "Medium":
+            intensityImageView.image = UIImage(named: "intensity_2_dark")
+        case "Hard":
+            intensityImageView.image = UIImage(named: "intensity_3_dark")
+        default:
+            break
+        }
     }
     
     public func setState(_ state: SessionCellState) {

@@ -13,20 +13,19 @@ class CheckCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var checkImageView: UIImageView!
     private var state: SessionCellState = .notCompleted {
         didSet {
-            switch state {
-            case .notCompleted:
-                sessionNumberLabel.isHidden = false
-                checkImageView.isHidden = true
-            case .completed:
-                sessionNumberLabel.isHidden = true
-                checkImageView.isHidden = false
-            }
+            checkState()
         }
     }
     static let identifier = "\(CheckCollectionViewCell.self)"
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        checkState()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        checkState()
     }
 
     static func getNib() -> UINib {
@@ -39,5 +38,24 @@ class CheckCollectionViewCell: UICollectionViewCell {
     
     public func setState(_ state: SessionCellState) {
         self.state = state
+    }
+    
+    private func checkState() {
+        switch state {
+        case .notCompleted:
+            setNotCompleted()
+        case .completed:
+            setCompleted()
+        }
+    }
+    
+    private func setCompleted() {
+        sessionNumberLabel.isHidden = true
+        checkImageView.isHidden = false
+    }
+    
+    private func setNotCompleted() {
+        sessionNumberLabel.isHidden = false
+        checkImageView.isHidden = true
     }
 }

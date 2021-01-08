@@ -16,6 +16,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAI-Wx-Ynx">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19665454682849703" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroller_frame" translatesAutoresizingMaskIntoConstraints="NO" id="euV-EP-2wj">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     </imageView>
@@ -38,11 +42,15 @@
             <constraints>
                 <constraint firstItem="euV-EP-2wj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="NVq-Bu-Ik1"/>
                 <constraint firstItem="N5N-jL-ypx" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Qf1-Yn-aIm"/>
+                <constraint firstAttribute="trailing" secondItem="YAI-Wx-Ynx" secondAttribute="trailing" id="UBF-vU-6pe"/>
                 <constraint firstItem="zWo-oJ-UQ6" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Vvx-yP-qwI"/>
                 <constraint firstAttribute="trailing" secondItem="euV-EP-2wj" secondAttribute="trailing" id="X0j-Qh-Yj2"/>
                 <constraint firstAttribute="bottom" secondItem="euV-EP-2wj" secondAttribute="bottom" id="b1c-24-Rat"/>
+                <constraint firstItem="YAI-Wx-Ynx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="lbO-vN-TRe"/>
                 <constraint firstItem="euV-EP-2wj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oBr-Vv-GeW"/>
+                <constraint firstAttribute="bottom" secondItem="YAI-Wx-Ynx" secondAttribute="bottom" id="oxp-av-H2Z"/>
                 <constraint firstItem="zWo-oJ-UQ6" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="rRx-8W-vqk"/>
+                <constraint firstItem="YAI-Wx-Ynx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sUS-7o-Bzq"/>
                 <constraint firstItem="N5N-jL-ypx" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="tPl-hm-jFF"/>
             </constraints>
             <connections>

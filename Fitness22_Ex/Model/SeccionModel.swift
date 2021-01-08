@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct SessionsListModel: Decodable {
+struct SessionsListModel: Codable {
     let array: [SessionModel]
 }
 
-struct SessionModel: Decodable {
+struct SessionModel: Codable {
     let length: Int
     let quoteAuthor: String
     let quote: String
